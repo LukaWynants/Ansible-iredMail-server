@@ -1,0 +1,85 @@
+---
+- hosts: all
+  user: root
+  become: true
+  vars_files:
+    - iredmail.yml
+  tasks:
+    - name: De nodige packages installeren voor docker te laten werken
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - python3-pip
+        - python3-requests
+
+    - name: start docker service bij boot
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: creer een directory voor de iRedMail container
+      file:
+        path: "{{ IREDMAIL_DIR }}"
+        state: directory
+
+    - name: creer de directories voor de iRedMail
+      ansible.builtin.file:
+        path: "{{ IREDMAIL_DIR }}/{{ item }}"
+        state: directory
+        recurse: yes
+      loop:
+        - backup-mysql
+        - clamav
+        - custom
+        - imapsieve_copy
+        - mailboxes
+        - mlmmj
+        - mlmmj-archive
+        - mysql
+        - sa_rules
+        - ssl
+        - postfix_queue
+
+    - name: creer iredmail-docker.conf op de host #Zie https://github.com/iredmail/dockerized?tab=readme-ov-file#required-parameters
+      copy:
+        content: |
+          HOSTNAME={{ HOSTNAME }}
+          FIRST_MAIL_DOMAIN={{ FIRST_MAIL_DOMAIN }}
+          FIRST_MAIL_DOMAIN_ADMIN_PASSWORD={{ FIRST_MAIL_DOMAIN_ADMIN_PASSWORD }}
+          MLMMJADMIN_API_TOKEN={{ lookup('pipe', 'openssl rand -base64 32') }}
+          ROUNDCUBE_DES_KEY={{ lookup('pipe', 'openssl rand -base64 24') }}
+        dest: "{{ IREDMAIL_DIR }}/iredmail-docker.conf"
+
+    - name: Run the iRedMail Docker container
+      community.docker.docker_container:
+        name: iredmail
+        image: iredmail/mariadb:stable
+        env_file: "{{ IREDMAIL_DIR }}/iredmail-docker.conf"
+        hostname: "{{ HOSTNAME }}"
+        ports:
+          - "80:80"
+          - "443:443"
+          - "110:110"
+          - "995:995"
+          - "143:143"
+          - "993:993"
+          - "25:25"
+          - "465:465"
+          - "587:587" # zie https://github.com/iredmail/dockerized?tab=readme-ov-file#exposed-network-ports
+        volumes:
+          - "/iredmail/data/backup-mysql:/var/vmail/backup/mysql"
+          - "/iredmail/data/mailboxes:/var/vmail/vmail1"
+          - "/iredmail/data/mlmmj:/var/vmail/mlmmj"
+          - "/iredmail/data/mlmmj-archive:/var/vmail/mlmmj-archive"
+          - "/iredmail/data/imapsieve_copy:/var/vmail/imapsieve_copy"
+          - "/iredmail/data/custom:/opt/iredmail/custom"
+          - "/iredmail/data/ssl:/opt/iredmail/ssl"
+          - "/iredmail/data/mysql:/var/lib/mysql"
+          - "/iredmail/data/clamav:/var/lib/clamav"
+          - "/iredmail/data/sa_rules:/var/lib/spamassassin"
+          - "/iredmail/data/postfix_queue:/var/spool/postfix"
