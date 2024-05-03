@@ -3,8 +3,16 @@
   user: root
   become: true
   vars_files:
-    - iredmail.yml
+    - vars.yml
   tasks:
+    - name: Uninstall Podman
+      dnf:
+        name: podman
+        state: absent
+
+    - name:  Docker CE repo toevogen aan de dnf package #Rocky has podman installed instead of docker
+      command: sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
     - name: De nodige packages installeren voor docker te laten werken
       ansible.builtin.dnf:
         name: "{{ item }}"
@@ -54,6 +62,12 @@
           MLMMJADMIN_API_TOKEN={{ lookup('pipe', 'openssl rand -base64 32') }}
           ROUNDCUBE_DES_KEY={{ lookup('pipe', 'openssl rand -base64 24') }}
         dest: "{{ IREDMAIL_DIR }}/iredmail-docker.conf"
+
+    - name: Stop de container als die al bestaat
+      docker_container:
+        name: iredmail
+        state: absent
+        force_kill: true
 
     - name: Run the iRedMail Docker container
       community.docker.docker_container:
