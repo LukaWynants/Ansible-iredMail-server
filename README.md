@@ -1,5 +1,5 @@
 
-#Setting the vars.yml
+# Setting the vars.yml
 
 The vars.yml file should look like this:
 
