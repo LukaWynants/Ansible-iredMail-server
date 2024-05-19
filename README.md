@@ -22,5 +22,13 @@ You can login with the credentials you set in the vars file
 
 
 
+To head to the mail panel to send an recieve mails head to:
+
+    http://<ip-address>
+
+
+
+
+
 
 
