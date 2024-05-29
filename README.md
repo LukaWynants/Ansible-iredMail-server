@@ -1,5 +1,7 @@
+# vars.yml
+
 (nederlands)
-# 
+
 In het bestand vars.yml moet je het volgende configureren:
 
 De locatie van de docker container
@@ -26,9 +28,7 @@ Om naar het mailpaneel te gaan om e-mails te verzenden en te ontvangen, ga je na
 
     http://<ip-address>
 
-
 (english)
-# Setting the vars.yml
 
 In the vars.yml file you have to configure:
 1. The location of the docker container
