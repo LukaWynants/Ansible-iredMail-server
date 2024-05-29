@@ -15,6 +15,10 @@ Het bestand vars.yml zou er als volgt uit moeten zien:
     FIRST_MAIL_DOMAIN: example.com
     FIRST_MAIL_DOMAIN_ADMIN_PASSWORD: testpassword
 
+je voert de playbook uit met:
+
+    ansible-playbook playbook.yml
+
 Nadat het playbook is uitgevoerd, ga je naar:
 
     http://<ip-address>/iredadmin
@@ -27,6 +31,8 @@ Dit is het beheerpaneel van de iRedMail server. Hier kun je instellingen configu
 Om naar het mailpaneel te gaan om e-mails te verzenden en te ontvangen, ga je naar:
 
     http://<ip-address>
+
+![Alt text](playbook.png)
 
 (english)
 
