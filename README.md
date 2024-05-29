@@ -1,4 +1,33 @@
+(nederlands)
+# 
+In het bestand vars.yml moet je het volgende configureren:
 
+De locatie van de docker container
+De hostnaam van je mailserver
+Het maildomein
+Het admin wachtwoord van de beheerconsole
+Het bestand vars.yml zou er als volgt uit moeten zien:
+    
+    IREDMAIL_DIR: /opt/iRedMail
+    HOSTNAME: mail.example.com
+    FIRST_MAIL_DOMAIN: example.com
+    FIRST_MAIL_DOMAIN_ADMIN_PASSWORD: testpassword
+
+Nadat het playbook is uitgevoerd, ga je naar:
+
+    http://<ip-address>/iredadmin
+
+Dit is het beheerpaneel van de iRedMail server. Hier kun je instellingen configureren, gebruikers toevoegen, enz. Je kunt inloggen met de inloggegevens die je hebt ingesteld in het vars.yml bestand.
+
+    username: postmaster@example.com
+    password: FIRST_MAIL_DOMAIN_ADMIN_PASSWORD
+
+Om naar het mailpaneel te gaan om e-mails te verzenden en te ontvangen, ga je naar:
+
+    http://<ip-address>
+
+
+(english)
 # Setting the vars.yml
 
 In the vars.yml file you have to configure:
