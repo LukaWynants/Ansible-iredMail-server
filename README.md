@@ -32,8 +32,6 @@ Om naar het mailpaneel te gaan om e-mails te verzenden en te ontvangen, ga je na
 
     http://<ip-address>
 
-![Alt text](playbook.png)
-
 (english)
 
 In the vars.yml file you have to configure:
@@ -63,6 +61,11 @@ You can login with the credentials you set in the vars file
 To head to the mail panel to send an recieve mails head to:
 
     http://<ip-address>
+
+
+playbook:
+
+![Alt text](playbook.png)
 
 
 
