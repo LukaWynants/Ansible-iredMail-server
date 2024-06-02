@@ -65,7 +65,7 @@ To head to the mail panel to send an recieve mails head to:
 
 playbook:
 
-![Alt text](playbook.png)
+![Alt text](/pictures/playbook_run.png)
 
 
 
