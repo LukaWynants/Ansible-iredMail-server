@@ -23,6 +23,8 @@ Nadat het playbook is uitgevoerd, ga je naar:
 
     http://<ip-address>/iredadmin
 
+![Alt text](/pictures/admin_panel.png)
+
 Dit is het beheerpaneel van de iRedMail server. Hier kun je instellingen configureren, gebruikers toevoegen, enz. Je kunt inloggen met de inloggegevens die je hebt ingesteld in het vars.yml bestand.
 
     username: postmaster@example.com
@@ -31,6 +33,8 @@ Dit is het beheerpaneel van de iRedMail server. Hier kun je instellingen configu
 Om naar het mailpaneel te gaan om e-mails te verzenden en te ontvangen, ga je naar:
 
     http://<ip-address>
+
+![Alt text](/pictures/mail_panel.png)
 
 (english)
 
