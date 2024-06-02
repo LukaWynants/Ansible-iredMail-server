@@ -4,12 +4,12 @@
 
 In het bestand vars.yml moet je het volgende configureren:
 
-De locatie van de docker container
-De hostnaam van je mailserver
-Het maildomein
-Het admin wachtwoord van de beheerconsole
+1. De locatie van de docker container
+2. De hostnaam van je mailserver
+3. Het maildomein
+4. Het admin wachtwoord van de beheerconsole
 Het bestand vars.yml zou er als volgt uit moeten zien:
-    
+
     IREDMAIL_DIR: /opt/iRedMail
     HOSTNAME: mail.example.com
     FIRST_MAIL_DOMAIN: example.com
